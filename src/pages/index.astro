@@ -1,0 +1,39 @@
+---
+const images = await Astro.glob("/public/images/*.webp").then(files => {
+  return files.map(file => file.default);
+});
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>Astro + TailwindCSS</title>
+	</head>
+
+	<body>
+		<div class="bg-hero bg-no-repeat bg-cover bg-center bg-fixed">
+
+			{
+				images.map(({ src /* width and height is also available */ }) => (
+				  <div class="flex justify-center swiper-slide">
+					<img
+					  class="w-full"
+					  src={src}
+					  decoding="async"
+					  loading="lazy"
+					/>
+				  </div>
+				))
+			  }
+		</div>
+	</body>
+</html>
+
+<style>
+	img :global(img), svg {
+	  margin-block: 2.5rem;
+	  border-radius: 0.75rem;
+	}
+  </style>
